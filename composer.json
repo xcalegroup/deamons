@@ -1,0 +1,19 @@
+{
+    "name": "xcalegroup/deamons",
+    "type": "library",
+    "description": "A library to handle deamons without any deadlocks in PHP using reflection to avoid changing code in the library",
+    "keywords": ["deamon","deamons","php","reflection"],
+    "homepage": "https://xcale.net",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Lennart Øster",
+            "email": "info@xcale.net",
+            "homepage": "https://xcale.net",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.0"
+    }
+}
