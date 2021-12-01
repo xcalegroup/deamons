@@ -6,17 +6,22 @@
 class DeamonBase
 {
     public $jobId = '';
-    public $data = 0;
+    protected $data = 0;
+    protected $db;
+
+    function __construct($db) {
+        $this->db = $db;
+    }
 
     public function createDeamon(){
         $id;
-        global $db;
+        
 		try{
 			$this->jobId = $this->getUUID();
 
-			$addsession = $db->prepare('INSERT INTO deamon_handler (unik_id) VALUES ("'.$this->jobId.'")');
+			$addsession = $this->db->prepare('INSERT INTO deamon_handler (unik_id) VALUES ("'.$this->jobId.'")');
 			$addsession->execute();
-            $id = $db->lastInsertId();
+            $id = $this->db->lastInsertId();
 		}
 		catch(Exception $e){
 		}
@@ -27,9 +32,8 @@ class DeamonBase
      * Clean up the job table. If not then job wont run again
      */
     public function cleanup(){
-        global $db;
 		try{
-			$stmt = $db->prepare('DELETE FROM deamon_handler WHERE unik_id = "'.$this->jobId.'"');
+			$stmt = $this->db->prepare('DELETE FROM deamon_handler WHERE unik_id = "'.$this->jobId.'"');
 			$stmt->execute();
             
 		}
@@ -38,21 +42,18 @@ class DeamonBase
     }
 
     public function must_stop(){
-        global $db;
-        $stmt = $db->prepare('SELECT stop FROM deamon_handler WHERE unik_id = "'.$this->jobId.'"');
+        $stmt = $this->db->prepare('SELECT stop FROM deamon_handler WHERE unik_id = "'.$this->jobId.'"');
         $stmt->execute();
         return  $stmt->fetch(PDO::FETCH_ASSOC)['stop'];
     }
 
     public function stop($jobId){
-        global $db;
-        $stmt = $db->prepare('UPDATE deamon_handler SET stop = 1 WHERE unik_id = "'.$this->jobId.'"');
+        $stmt = $this->db->prepare('UPDATE deamon_handler SET stop = 1 WHERE unik_id = "'.$this->jobId.'"');
         $stmt->execute();
     }
 
     public function stopAll(){
-        global $db;
-        $stmt = $db->prepare('UPDATE deamon_handler SET stop = 1');
+        $stmt = $this->db->prepare('UPDATE deamon_handler SET stop = 1');
         $stmt->execute();
     }
 
@@ -61,13 +62,12 @@ class DeamonBase
      * @return Result (Either BackLink or Domain. Based on HandleType)
      */
     public function getDeamons(){
-        global $db;
         $result = array();
         
         $entries = array();
         $query = "SELECT COUNT(id) as count FROM deamon_handler";
-        $db->query("SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED"); // Make sure to only read data not comitted yet. To avoid Deadlock
-		$stmt = $db->prepare($query);
+        $this->db->query("SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED"); // Make sure to only read data not comitted yet. To avoid Deadlock
+		$stmt = $this->db->prepare($query);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC)['count'];
         return $row;

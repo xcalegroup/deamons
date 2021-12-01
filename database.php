@@ -1,7 +1,4 @@
 <?php
-require_once("deamon_consts.php");
-
-$db = new Database();
 
 class Database extends PDO {
 

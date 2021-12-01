@@ -1,6 +1,13 @@
 {
     "version" : "1.0",
     "max_deamons" : 15,
+    "database" : {
+            "DB_TYPE" : "mysql",
+            "DB_HOST" : "localhost",
+            "DB_USER" : "user_deamon",
+            "DB_PASS" : "8&okZ1h0",
+            "DB_NAME" : "deamon"
+    },
     "deamons" : [
         {
             "class" : "cars",

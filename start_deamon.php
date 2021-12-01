@@ -1,8 +1,4 @@
 <?php
-require_once("deamonBase.php");
-require_once("deamonJob.php");
-require_once("database.php");
-
 // get config
 $file = fopen("deamons.json","r");
 $config = json_decode(fread($file, filesize("deamons.json")));
@@ -10,9 +6,21 @@ $config = json_decode(fread($file, filesize("deamons.json")));
 $max_deamons = $config->max_deamons;
 $jobs = $config->deamons;
 
+define("DB_DEAMON_TYPE", $config->database->DB_TYPE);
+define("DB_DEAMON_HOST", $config->database->DB_HOST);
+define("DB_DEAMON_USER", $config->database->DB_USER);
+define("DB_DEAMON_PASS", $config->database->DB_PASS);
+define("DB_DEAMON_NAME", $config->database->DB_NAME);
+
+require_once("deamonBase.php");
+require_once("deamonJob.php");
+require_once("database.php");
+
+$db = new Database();
+
 getReflectionRequrements($config->deamons);
 
-$deamon = new DeamonBase();
+$deamon = new DeamonBase($db);
 if ($deamon->getDeamons() > $max_deamons) {
     echo "Max deamons already started";
     exit;
@@ -30,7 +38,7 @@ try {
     while (time() < $expire_time && $deamon->must_stop() == 0) {
         foreach ($jobs as $job) {
 			$refclass = new ReflectionClass($job->class);
-            $deamonjob = $refclass->newInstance();
+            $deamonjob = $refclass->newInstance($db);
 			$deamonjob->create($deamonid, $deamon->getUUID());
 			$jobs_to_execute = $deamonjob->getJob();
 
