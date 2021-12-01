@@ -1,7 +1,20 @@
 <?php
 // get config
-$file = fopen("deamons.json","r");
-$config = json_decode(fread($file, filesize("deamons.json")));
+$configfile = "";
+if (isset($argv)) {
+    $configfile = $argv[1];
+}
+else{
+	$configfile = isset($_GET['config']) ? $_GET['config'] : null;
+}
+
+if (!isset($configfile)) {
+	echo "config file is missing";
+	exit;
+}
+
+$file = fopen($configfile,"r");
+$config = json_decode(fread($file, filesize($configfile)));
 
 $max_deamons = $config->max_deamons;
 $jobs = $config->deamons;
