@@ -32,13 +32,14 @@ You need to add a json config file to your project
 Your start the Deamon as a cron job.
 Set the config file as a parameter to the file.
 
-(/xcalegroup/deamons/master/cron.png?raw=true "Title")
-![alt text](https://raw.githubusercontent.com/xcalegroup/deamons/master/cron.png)
+
 
 Or you can run it for test in a browser using the ?config=deamons.json
 You can use file paths in the url
 
 ```
+![Alt text](/xcalegroup/deamons/master/cron.png?raw=true "Title")
+![alt text](https://raw.githubusercontent.com/xcalegroup/deamons/master/cron.png)
 
 # Implement the abstract functions in your class**
 ```
