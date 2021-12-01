@@ -1,0 +1,11 @@
+{
+    "version" : "1.0",
+    "max_deamons" : 15,
+    "deamons" : [
+        {
+            "class" : "cars",
+            "include" : "./examples/cars.php",
+            "max_jobs" : 15
+        }
+    ]
+}
