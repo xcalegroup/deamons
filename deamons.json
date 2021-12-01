@@ -11,8 +11,7 @@
     "deamons" : [
         {
             "class" : "cars",
-            "include" : "./examples/cars.php",
-            "max_jobs" : 15
+            "include" : "./examples/cars.php"
         }
     ]
 }

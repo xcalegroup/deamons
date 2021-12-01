@@ -6,16 +6,35 @@ composer require xcalegroup/deamons
 ```
 
 # Requirements
-You need to set the consts in the deamon_consts.php file
+You need to add a json config file to your project
 ```
-define("DB_DEAMON_TYPE", "mysql");
-define("DB_DEAMON_HOST", "localhost");
-define("DB_DEAMON_USER", "username");
-define("DB_DEAMON_PASS", "8&okZ1h0");
-define("DB_DEAMON_NAME", "deamon");
+{
+    "version" : "1.0",
+    "max_deamons" : 15,
+    "database" : {
+            "DB_TYPE" : "mysql",
+            "DB_HOST" : "localhost",
+            "DB_USER" : "dbuser",
+            "DB_PASS" : "password",
+            "DB_NAME" : "dbname"
+    },
+    "deamons" : [
+        {
+            "class" : "cars",
+            "include" : "./examples/cars.php"
+        }
+    ]
+}
 ```
 
-**Implement the abstract functions in your class**
+# How to start the Deamon
+```
+Your start the Deamon as a cron job.
+Set the config file as a parameter to the file.
+
+```
+
+# Implement the abstract functions in your class**
 ```
 require_once("deamonJob.php");
 
