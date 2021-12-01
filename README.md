@@ -38,8 +38,7 @@ Or you can run it for test in a browser using the ?config=deamons.json
 You can use file paths in the url
 
 ```
-![Alt text](/xcalegroup/deamons/master/cron.png?raw=true "Title")
-![alt text](https://raw.githubusercontent.com/xcalegroup/deamons/master/cron.png)
+![alt text](https://raw.githubusercontent.com/xcalegroup/deamons/master/cron.png "Cron in Plesk")
 
 # Implement the abstract functions in your class**
 ```
