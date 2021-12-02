@@ -17,12 +17,13 @@ class cars extends DeamonJob
     /**
      * Return the data variables to use in execute method.
      * Each array entry equals a new job. You decide how many jobs to start for each deamon.
-     * The content for each array entry can be anything you like. Values, JSON, arrays, objects etc. As long as it can be presented as a string.
+     * The content for each array entry can be anything you like. Values, JSON, arrays, objects etc.
+     * All data is being json_encoded
      * Note: return null on no more data
      */
     public function request()
     {
-        return array("Make" => "BMW", "Make" => "Audi");
+        return array(array("car" => "BMW", "model" => "330e"), array("car" => "Audi", "model" => "A6"));
     }
 }
 

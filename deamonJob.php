@@ -30,7 +30,7 @@ abstract class DeamonJob
                 foreach ($requestData as $data) {
                     $this->db->query("SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED"); // Make sure to only read data not comitted yet. To avoid Deadlock
                     $addsession = $this->db->prepare('INSERT INTO deamon_jobs (deamon_id, job_id, class, data) VALUES (:deamon_id, :job_id, :class, :data)');
-                    $addsession->execute(array(':deamon_id' => $this->deamon_id, ':job_id' => $this->job_id, ':class' => $class, ':data' => $data));
+                    $addsession->execute(array(':deamon_id' => $this->deamon_id, ':job_id' => $this->job_id, ':class' => $class, ':data' => json_encode($data)));
                 }
             }
 		}
