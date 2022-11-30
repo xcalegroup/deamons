@@ -24,7 +24,7 @@ CREATE TABLE `deamon_jobs` (
  `created` timestamp NULL DEFAULT current_timestamp(),
  `updated` timestamp NULL DEFAULT current_timestamp(),
  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1975 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_c
+) ENGINE=InnoDB AUTO_INCREMENT=1975 DEFAULT CHARSET=utf8
 ```
 
 # Requirements
@@ -52,6 +52,9 @@ You need to add a json config file to your project
 # How to start the Deamon
 ```
 Your start the Deamon as a cron job.
+Set the config file as a parameter to the file.
+
+Your stop the Deamon as a cron job or call to the stop_deamons.php file.
 Set the config file as a parameter to the file.
 
 Or you can run it for test in a browser using the ?config=deamons.json
